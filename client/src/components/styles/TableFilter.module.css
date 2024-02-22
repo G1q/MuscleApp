@@ -1,0 +1,16 @@
+.filterWrapper {
+	margin-block: 0.5rem;
+}
+
+.filterWrapper input {
+	width: 100%;
+	font-size: 0.875rem;
+	padding: 0.25em 1em;
+	background-color: transparent;
+	border: 1px solid #cdcdcd;
+	border-radius: 0.25rem;
+}
+
+.filterWrapper input:focus-visible {
+	outline: 1px solid var(--primary-clr);
+}

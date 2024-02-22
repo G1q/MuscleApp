@@ -1,0 +1,19 @@
+.container {
+	max-width: 1200px;
+	display: grid;
+	grid-template-columns: 1fr;
+	margin-inline: auto;
+	gap: 1rem;
+}
+
+.wrapper {
+	display: grid;
+	grid-template-columns: 200px auto;
+	gap: 1rem;
+}
+
+@media (max-width: 720px) {
+	.wrapper {
+		grid-template-columns: 1fr;
+	}
+}

@@ -1,0 +1,29 @@
+.tableContainer {
+	width: 100%;
+	overflow-x: auto;
+}
+
+.dataTable {
+	width: 100%;
+	border-collapse: collapse;
+	text-align: center;
+	font-size: 0.875rem;
+}
+
+.dataTable :is(th, td) {
+	border: 1px solid;
+}
+
+.dataTable a {
+	display: grid;
+	place-items: center;
+	text-decoration: none;
+	width: max-content;
+	margin-inline: auto;
+}
+
+.dataTable :is(button, svg) {
+	border: none;
+	background: none;
+	cursor: pointer;
+}

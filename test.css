@@ -1,0 +1,24 @@
+html {
+	color-scheme: dark light;
+}
+
+body {
+	display: grid;
+	place-items: center;
+	min-height: 1000vh;
+}
+
+.circle {
+	width: 200px;
+	aspect-ratio: 1;
+	background-color: crimson;
+	border-radius: 50%;
+	animation: rotate 5s ease-in-out;
+	animation-timeline: scroll();
+}
+
+@keyframes rotate {
+	to {
+		rotate: y 5turn;
+	}
+}

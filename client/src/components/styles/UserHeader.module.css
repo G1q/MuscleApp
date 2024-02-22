@@ -1,0 +1,28 @@
+.header {
+	padding: 1rem;
+	background-color: #222;
+}
+
+.navigationList {
+	list-style-type: none;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	padding: 0;
+}
+
+.navigationList li {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	color: var(--primary-clr);
+}
+
+.navigationList a {
+	text-decoration: none;
+	color: var(--primary-clr);
+}
+
+.navigationList a .active {
+	background-color: red;
+}

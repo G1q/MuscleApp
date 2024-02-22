@@ -1,0 +1,33 @@
+.header {
+	padding: 1rem;
+	background-color: #222;
+	position: sticky;
+	top: 0;
+	z-index: 99999999;
+}
+
+.primaryNavigation {
+	display: flex;
+	align-items: center;
+}
+
+.primaryNavigation ul {
+	list-style-type: none;
+	display: flex;
+	gap: 1rem;
+	padding: 0;
+	margin-left: auto;
+	font-size: 0.875rem;
+}
+
+.primaryNavigation li {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	color: var(--primary-clr);
+}
+
+.primaryNavigation a {
+	text-decoration: none;
+	color: var(--primary-clr);
+}
