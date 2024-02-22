@@ -1,13 +1,14 @@
 import { NavLink } from 'react-router-dom'
 import styles from './styles/MainHeader.module.css'
+import Logo from './Logo'
 
 const MainHeader = () => {
 	return (
 		<header className={styles.header}>
+			<div>
+				<Logo />
+			</div>
 			<nav className={styles.primaryNavigation}>
-				<div>
-					<p>MuscleAPP</p>
-				</div>
 				<ul>
 					<li>
 						<NavLink to="/">Homepage</NavLink>

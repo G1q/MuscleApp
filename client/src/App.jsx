@@ -20,6 +20,7 @@ import UserProfile from './pages/user/UserProfile'
 import UserWorkouts from './pages/user/UserWorkouts'
 import UserDiary from './pages/user/UserDiary'
 import UserSettings from './pages/user/UserSettings'
+import NoHeaderLayout from './layouts/NoHeaderLayout'
 
 function App() {
 	return (
@@ -120,6 +121,24 @@ function App() {
 				<Route
 					path="/user/settings"
 					element={<UserSettings />}
+				/>
+			</Route>
+
+			<Route
+				path="/"
+				element={<NoHeaderLayout />}
+			>
+				<Route
+					path="/login"
+					element={<h1>Login page</h1>}
+				/>
+				<Route
+					path="/register"
+					element={<h1>Register page</h1>}
+				/>
+				<Route
+					path="*"
+					element={<h1>Page not found 404</h1>}
 				/>
 			</Route>
 		</Routes>

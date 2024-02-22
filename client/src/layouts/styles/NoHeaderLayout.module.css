@@ -1,0 +1,11 @@
+.container {
+	max-width: 1200px;
+	margin-inline: auto;
+}
+
+.navigation {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 1rem;
+}
