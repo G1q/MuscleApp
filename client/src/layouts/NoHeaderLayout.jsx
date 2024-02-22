@@ -5,7 +5,7 @@ import Logo from '../components/Logo'
 const NoHeaderLayout = () => {
 	return (
 		<div className={styles.container}>
-			<header className={styles.header}>
+			<header>
 				<nav className={styles.navigation}>
 					<Logo />
 				</nav>
