@@ -1,0 +1,51 @@
+.exercise__card {
+	display: grid;
+	grid-template-columns: 100px 1fr;
+	gap: 1rem;
+	align-items: center;
+	margin-bottom: 1rem;
+	background-color: #efefef;
+	color: #333;
+	border-radius: 0.25rem;
+	padding: 0.5rem 1rem;
+}
+
+.exercise__card--image {
+	grid-column: 1 / 2;
+	grid-row: span 2;
+	box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.25);
+}
+
+.exercise__card--image img {
+	width: 100px;
+	aspect-ratio: 16 / 9;
+	object-fit: cover;
+}
+
+.exercise__card--link {
+	text-decoration: none;
+	width: max-content;
+}
+
+.exercise__card--title {
+	grid-column: 2 / 3;
+	grid-row: 1 / 2;
+	font-size: 1rem;
+	color: var(--primary-clr);
+}
+
+.exercise__card--info {
+	grid-column: 2 / 3;
+	grid-row: 2 / 3;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+.exercise__card span {
+	background-color: rebeccapurple;
+	color: #efefef;
+	padding: 0.15em 1em;
+	border-radius: 100vmax;
+	font-size: 0.75rem;
+}

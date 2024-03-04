@@ -1,0 +1,17 @@
+.exercises__filter--section {
+	padding: 1rem;
+	margin-block: 1rem;
+	max-height: 15rem;
+	overflow-y: auto;
+}
+
+.exercises__filter--section-title {
+	padding-inline: 1rem;
+}
+
+.exercises__filter--option {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	accent-color: var(--primary-clr);
+}

@@ -1,0 +1,7 @@
+API:
+models name : file.model.js
+
+
+CLIENT:
+add <search> element
+profile -> image -> upload / accept + capture attributes

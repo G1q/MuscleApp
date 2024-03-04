@@ -1,0 +1,11 @@
+.filter {
+	background-color: #efefef;
+	padding: 1rem;
+	color: #333;
+	border-radius: 0.25rem;
+	max-width: 300px;
+}
+
+.filter__title {
+	text-align: center;
+}

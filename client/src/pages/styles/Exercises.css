@@ -1,0 +1,28 @@
+.exercises__wrapper {
+	display: grid;
+	grid-template-columns: 300px 1fr;
+}
+
+.exercises__section {
+	padding: 1rem;
+}
+
+.exercises__categories--list {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	list-style-type: none;
+	margin-bottom: 1rem;
+	gap: 1rem;
+}
+
+.exercises__categories--list-item {
+	background-color: var(--primary-clr);
+	padding: 0.25em 1em;
+	border-radius: 100vmax;
+}
+
+.exercises__categories--link {
+	text-decoration: none;
+	color: #efefef;
+}
