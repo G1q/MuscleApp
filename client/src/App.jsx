@@ -21,6 +21,8 @@ import UserWorkouts from './pages/user/UserWorkouts'
 import UserDiary from './pages/user/UserDiary'
 import UserSettings from './pages/user/UserSettings'
 import NoHeaderLayout from './layouts/NoHeaderLayout'
+import MuscleHub from './pages/MuscleHub'
+import MusclePage from './pages/MusclePage'
 
 function App() {
 	return (
@@ -99,6 +101,16 @@ function App() {
 				<Route
 					path="/exercises"
 					element={<ExercisesList />}
+				/>
+
+				<Route
+					path="/muscles"
+					element={<MuscleHub />}
+				/>
+
+				<Route
+					path="/muscles/:slug"
+					element={<MusclePage />}
 				/>
 			</Route>
 

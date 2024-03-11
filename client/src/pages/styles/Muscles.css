@@ -1,0 +1,44 @@
+.muscles__section {
+	padding: 1rem;
+}
+
+.muscles__section--page {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 2rem;
+}
+
+.muscles__section--gallery {
+	margin-bottom: 1rem;
+}
+
+.muscles__section--buttons {
+	display: grid;
+	gap: 0.5rem;
+	margin-block: 1rem;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+.muscles__section--buttons a {
+	text-decoration: none;
+	color: var(--neutral-clr-100);
+	background-color: var(--primary-clr);
+	padding: 0.5em 1em;
+	border-radius: 0.25em;
+	display: grid;
+	place-items: center;
+	text-align: center;
+	opacity: 1;
+	transition: opacity 250ms ease-in-out;
+}
+
+.muscles__section--buttons a:is(:hover, :focus-visible) {
+	opacity: 0.8;
+	outline-offset: 5px;
+}
+
+@media (max-width: 768px) {
+	.muscles__section--page {
+		grid-template-columns: 1fr;
+	}
+}

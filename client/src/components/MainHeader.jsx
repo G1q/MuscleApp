@@ -17,6 +17,9 @@ const MainHeader = () => {
 						<NavLink to="/exercises">Exercises</NavLink>
 					</li>
 					<li>
+						<NavLink to="/muscles">Muscles</NavLink>
+					</li>
+					<li>
 						<NavLink to="/user/workouts">My Workouts</NavLink>
 					</li>
 					<li>
