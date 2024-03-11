@@ -7,6 +7,26 @@
 	padding: 1rem;
 }
 
+.exercises__section--page {
+	display: grid;
+	gap: 2rem;
+}
+
+.exercises__section--media {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 2rem;
+}
+
+.exercises__section--gallery {
+	margin-bottom: 1rem;
+}
+
+.exercises__section--videos iframe {
+	width: 100%;
+	aspect-ratio: 16/ 9;
+}
+
 .exercises__categories--list {
 	display: flex;
 	align-items: center;
@@ -25,4 +45,31 @@
 .exercises__categories--link {
 	text-decoration: none;
 	color: #efefef;
+}
+
+@media (max-width: 768px) {
+	.exercises__section--page {
+		grid-template-columns: 1fr;
+	}
+	.exercises__section--media {
+		grid-template-columns: 1fr;
+	}
+}
+
+ol {
+	padding: 0;
+}
+
+ol li {
+	margin-left: 1rem;
+}
+
+.exercises__section--details p {
+	font-weight: 700;
+	color: firebrick;
+}
+
+.exercises__section--details p span {
+	font-weight: normal;
+	color: var(--neutral-clr-100);
 }
