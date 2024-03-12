@@ -58,7 +58,7 @@ const getUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
 	const { id } = req.params
-	const { username, email, password, role, active } = req.body
+	const { username, email, password, role, active, firstName, lastName, birthdate, bio, avatar } = req.body
 	let hashedPassword = password
 
 	try {
@@ -75,7 +75,11 @@ const updateUser = async (req, res) => {
 		// Check if password is changed
 		if (password) hashedPassword = await bcrypt.hash(password, 10)
 
-		const updatedUser = await User.findByIdAndUpdate(id, { username, email, role, active, password: hashedPassword }, { new: true })
+		const updatedUser = await User.findByIdAndUpdate(
+			id,
+			{ username, email, role, active, firstName, lastName, birthdate, bio, avatar, password: hashedPassword },
+			{ new: true }
+		)
 
 		res.status(200).json(updatedUser)
 	} catch (error) {

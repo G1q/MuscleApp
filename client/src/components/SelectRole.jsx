@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import ROLES from '../utils/roles'
 
 const SelectRole = ({ onChange, defaultValue }) => {
@@ -12,7 +13,7 @@ const SelectRole = ({ onChange, defaultValue }) => {
 			>
 				{ROLES.map((role) => (
 					<option
-						value="role"
+						value={role}
 						key={role}
 					>
 						{role.charAt(0).toUpperCase() + role.slice(1)}

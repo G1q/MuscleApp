@@ -24,6 +24,21 @@ const userSchema = mongoose.Schema(
 			type: Boolean,
 			default: true,
 		},
+		firstName: {
+			type: String,
+		},
+		lastName: {
+			type: String,
+		},
+		birthdate: {
+			type: String,
+		},
+		bio: {
+			type: String,
+		},
+		avatar: {
+			type: String,
+		},
 	},
 	{ timestamps: true }
 )

@@ -1,50 +1,44 @@
 import { RiDeleteBinLine, RiEditLine, RiEyeLine } from 'react-icons/ri'
 import { Link } from 'react-router-dom'
 import toast, { Toaster } from 'react-hot-toast'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Table from '../../../components/Table'
 import TableFilter from '../../../components/TableFilter'
-
-const USERS = [
-	{
-		id: 1,
-		username: 'admin',
-		active: true,
-		role: 'admin',
-	},
-	{
-		id: 2,
-		username: 'G1q',
-		active: true,
-		role: 'admin',
-	},
-	{
-		id: 3,
-		username: 'user',
-		active: true,
-		role: 'user',
-	},
-	{
-		id: 4,
-		username: 'test',
-		active: false,
-		role: 'user',
-	},
-]
+import axiosInstance from '../../../config/axios.config'
+import { useAuth } from '../../../contexts/AuthContext'
 
 const Users = () => {
-	const [users, setUsers] = useState(USERS)
+	const { getUserId } = useAuth()
+	const [users, setUsers] = useState([])
 	const [searchQuery, setSearchQuery] = useState('')
+
+	useEffect(() => {
+		getUsers()
+	}, [])
+
+	const getUsers = async () => {
+		try {
+			const response = await axiosInstance.get('users')
+			setUsers(response.data)
+		} catch (error) {
+			error.response.data.message
+				? toast.error(`Error ${error.response.status}: ${error.response.data.message}`, { position: 'top-right', id: 'get-users' })
+				: toast.error(error.message, { position: 'top-right', id: 'get-users' })
+		}
+	}
 
 	const deleteUser = async (id) => {
 		const confirmation = window.confirm('Are you sure you want to delete this user?')
 
 		if (confirmation) {
 			try {
-				setUsers(users.filter((user) => user.id !== id))
-				toast.success(`User ${id} deleted successfully!`, { position: 'top-right', id: 'delete-user' })
-			} catch (err) {
-				toast.error(err.message)
+				await axiosInstance.delete(`/users/${id}`)
+				toast.success(`User deleted successfully!`, { position: 'top-right', id: 'delete-user' })
+				getUsers()
+			} catch (error) {
+				error.response.data.message
+					? toast.error(`Error ${error.response.status}: ${error.response.data.message}`, { position: 'top-right', id: 'get-users' })
+					: toast.error(error.message, { position: 'top-right', id: 'get-users' })
 			}
 		}
 	}
@@ -64,24 +58,26 @@ const Users = () => {
 							{users
 								.filter((user) => user.username.toLowerCase().includes(searchQuery))
 								.map((user) => (
-									<tr key={user.id}>
+									<tr key={user._id}>
 										<td>{user.username}</td>
 										<td>{user.role}</td>
 										<td>{user.active ? 'Yes' : 'No'}</td>
 										<td>
-											<Link to={`./view/${user.id}`}>
+											<Link to={`./view/${user._id}`}>
 												<RiEyeLine color="royalblue" />
 											</Link>
 										</td>
 										<td>
-											<Link to={`./edit/${user.id}`}>
+											<Link to={`./edit/${user._id}`}>
 												<RiEditLine color="forestgreen" />
 											</Link>
 										</td>
 										<td>
-											<button onClick={() => deleteUser(user.id)}>
-												<RiDeleteBinLine color="crimson" />
-											</button>
+											{getUserId() !== user._id && (
+												<button onClick={() => deleteUser(user._id)}>
+													<RiDeleteBinLine color="crimson" />
+												</button>
+											)}
 										</td>
 									</tr>
 								))}
