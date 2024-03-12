@@ -24,142 +24,147 @@ import NoHeaderLayout from './layouts/NoHeaderLayout'
 import MuscleHub from './pages/MuscleHub'
 import MusclePage from './pages/MusclePage'
 import ExercisePage from './pages/ExercisePage'
+import Login from './pages/auth/Login'
+import { AuthProvider } from './contexts/AuthContext'
+import Register from './pages/auth/Register'
 
 function App() {
 	return (
-		<Routes>
-			<Route
-				path="/admin"
-				element={<AdminLayout />}
-			>
+		<AuthProvider>
+			<Routes>
 				<Route
-					index
-					element={<AdminDashboard />}
-				/>
-				<Route
-					path="/admin/users"
-					element={<Users />}
-				/>
-				<Route
-					path="/admin/users/view/:id"
-					element={<ViewUser />}
-				/>
-				<Route
-					path="/admin/users/edit/:id"
-					element={<EditUser />}
-				/>
-				<Route
-					path="/admin/users/create"
-					element={<CreateUser />}
-				/>
+					path="/admin"
+					element={<AdminLayout />}
+				>
+					<Route
+						index
+						element={<AdminDashboard />}
+					/>
+					<Route
+						path="/admin/users"
+						element={<Users />}
+					/>
+					<Route
+						path="/admin/users/view/:id"
+						element={<ViewUser />}
+					/>
+					<Route
+						path="/admin/users/edit/:id"
+						element={<EditUser />}
+					/>
+					<Route
+						path="/admin/users/create"
+						element={<CreateUser />}
+					/>
+
+					<Route
+						path="/admin/categories/"
+						element={<Categories />}
+					/>
+					<Route
+						path="/admin/categories/edit/:id"
+						element={<EditCategory />}
+					/>
+					<Route
+						path="/admin/categories/create"
+						element={<CreateCategory />}
+					/>
+
+					<Route
+						path="/admin/exercises/"
+						element={<Exercises />}
+					/>
+					<Route
+						path="/admin/exercises/edit/:id"
+						element={<EditExercise />}
+					/>
+					<Route
+						path="/admin/exercises/create"
+						element={<CreateExercise />}
+					/>
+
+					<Route
+						path="/admin/settings"
+						element={<AdminSettings />}
+					/>
+
+					<Route
+						path="/admin/stats"
+						element={<AdminStats />}
+					/>
+				</Route>
 
 				<Route
-					path="/admin/categories/"
-					element={<Categories />}
-				/>
-				<Route
-					path="/admin/categories/edit/:id"
-					element={<EditCategory />}
-				/>
-				<Route
-					path="/admin/categories/create"
-					element={<CreateCategory />}
-				/>
+					path="/"
+					element={<MainLayout />}
+				>
+					<Route
+						index
+						element={<h1>Homepage</h1>}
+					/>
+
+					<Route
+						path="/exercises"
+						element={<ExercisesList />}
+					/>
+
+					<Route
+						path="/exercises/:slug"
+						element={<ExercisePage />}
+					/>
+
+					<Route
+						path="/muscles"
+						element={<MuscleHub />}
+					/>
+
+					<Route
+						path="/muscles/:slug"
+						element={<MusclePage />}
+					/>
+				</Route>
 
 				<Route
-					path="/admin/exercises/"
-					element={<Exercises />}
-				/>
-				<Route
-					path="/admin/exercises/edit/:id"
-					element={<EditExercise />}
-				/>
-				<Route
-					path="/admin/exercises/create"
-					element={<CreateExercise />}
-				/>
+					path="/user"
+					element={<UserLayout />}
+				>
+					<Route
+						index
+						element={<UserProfile />}
+					/>
+					<Route
+						path="/user/workouts"
+						element={<UserWorkouts />}
+					/>
+					<Route
+						path="/user/diary"
+						element={<UserDiary />}
+					/>
+					<Route
+						path="/user/settings"
+						element={<UserSettings />}
+					/>
+				</Route>
 
 				<Route
-					path="/admin/settings"
-					element={<AdminSettings />}
-				/>
-
-				<Route
-					path="/admin/stats"
-					element={<AdminStats />}
-				/>
-			</Route>
-
-			<Route
-				path="/"
-				element={<MainLayout />}
-			>
-				<Route
-					index
-					element={<h1>Homepage</h1>}
-				/>
-
-				<Route
-					path="/exercises"
-					element={<ExercisesList />}
-				/>
-
-				<Route
-					path="/exercises/:slug"
-					element={<ExercisePage />}
-				/>
-
-				<Route
-					path="/muscles"
-					element={<MuscleHub />}
-				/>
-
-				<Route
-					path="/muscles/:slug"
-					element={<MusclePage />}
-				/>
-			</Route>
-
-			<Route
-				path="/user"
-				element={<UserLayout />}
-			>
-				<Route
-					index
-					element={<UserProfile />}
-				/>
-				<Route
-					path="/user/workouts"
-					element={<UserWorkouts />}
-				/>
-				<Route
-					path="/user/diary"
-					element={<UserDiary />}
-				/>
-				<Route
-					path="/user/settings"
-					element={<UserSettings />}
-				/>
-			</Route>
-
-			<Route
-				path="/"
-				element={<NoHeaderLayout />}
-			>
-				<Route
-					path="/login"
-					element={<h1>Login page</h1>}
-				/>
-				<Route
-					path="/register"
-					element={<h1>Register page</h1>}
-				/>
-				<Route
-					path="*"
-					element={<h1>Page not found 404</h1>}
-				/>
-			</Route>
-		</Routes>
+					path="/"
+					element={<NoHeaderLayout />}
+				>
+					<Route
+						path="/login"
+						element={<Login />}
+					/>
+					<Route
+						path="/register"
+						element={<Register />}
+					/>
+					<Route
+						path="*"
+						element={<h1>Page not found 404</h1>}
+					/>
+				</Route>
+			</Routes>
+		</AuthProvider>
 	)
 }
 
