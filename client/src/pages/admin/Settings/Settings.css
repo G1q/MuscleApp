@@ -1,0 +1,31 @@
+.settings__subtitle {
+	text-align: center;
+	margin-block: 2rem;
+}
+
+.settings__actions {
+	display: flex;
+	align-items: center;
+	margin-block: 1rem;
+}
+
+.settings__actions > * {
+	border: none;
+	padding: 0.25em 1em;
+	font-size: 0.875rem;
+}
+
+.settings__actions input {
+	border-radius: 0.25em 0 0 0.25em;
+}
+
+.settings__actions button {
+	border-radius: 0 0.25em 0.25em 0;
+	background-color: var(--primary-clr);
+	color: var(--neutral-clr-100);
+	cursor: pointer;
+}
+
+.settings__actions button:is(:hover, :focus-visible) {
+	background-color: rgb(11, 34, 101);
+}

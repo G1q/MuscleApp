@@ -1,8 +1,11 @@
 import { useRef, useState } from 'react'
-import EXERCISE_TYPE from '../../../utils/exerciseTypes'
-import EQUIPMENT from '../../../utils/equipment'
 import styles from './Exercise.module.css'
 import { RiDeleteBinLine } from 'react-icons/ri'
+import axiosInstance from '../../../config/axios.config'
+import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
+import SelectExerciseType from '../../../components/SelectExerciseType'
+import SelectEquipment from '../../../components/SelectEquipment'
 
 const CATEGORIES = [
 	{
@@ -31,6 +34,8 @@ const CreateExercise = () => {
 	const [exercise, setExercise] = useState({ steps: [] })
 	const stepRef = useRef('')
 
+	const navigate = useNavigate()
+
 	const addExerciseDetails = (e) => {
 		setExercise((prev) => ({ ...prev, [e.target.name]: e.target.value }))
 	}
@@ -51,7 +56,21 @@ const CreateExercise = () => {
 
 	const createExercise = async (e) => {
 		e.preventDefault()
-		console.log(exercise)
+
+		// if (!user.username) return toast.error('Please provide an username!', { position: 'top-right', id: 'create-exercise' })
+		// if (!user.email) return toast.error('Please provide an email!', { position: 'top-right', id: 'create-exercise' })
+		// if (!user.password) return toast.error('Please provide a password!', { position: 'top-right', id: 'create-exercise' })
+
+		try {
+			await axiosInstance.post(`/exercises`, exercise)
+			toast.success(`Exercise created successfully!`, { position: 'top-right', id: 'create-exercise' })
+		} catch (error) {
+			error.response.data.message
+				? toast.error(`Error ${error.response.status}: ${error.response.data.message}`, { position: 'top-right', id: 'create-exercise' })
+				: toast.error(error.message, { position: 'top-right', id: 'create-exercise' })
+		}
+
+		navigate('/admin/users')
 	}
 
 	return (
@@ -96,55 +115,11 @@ const CreateExercise = () => {
 					</div>
 
 					<div className={styles.formInputGroup}>
-						<label htmlFor="type">Type: </label>
-						<select
-							type="text"
-							name="type"
-							id="type"
-							onChange={addExerciseDetails}
-							defaultValue={''}
-						>
-							<option
-								value=""
-								hidden
-							>
-								Choose type
-							</option>
-							{EXERCISE_TYPE.map((type) => (
-								<option
-									key={type}
-									value={type}
-								>
-									{type}
-								</option>
-							))}
-						</select>
+						<SelectExerciseType onChange={addExerciseDetails} />
 					</div>
 
 					<div className={styles.formInputGroup}>
-						<label htmlFor="equipment">Equipment: </label>
-						<select
-							type="text"
-							name="equipment"
-							id="equipment"
-							onChange={addExerciseDetails}
-							defaultValue={''}
-						>
-							<option
-								value=""
-								hidden
-							>
-								Choose equipment
-							</option>
-							{EQUIPMENT.map((equipment) => (
-								<option
-									key={equipment}
-									value={equipment}
-								>
-									{equipment}
-								</option>
-							))}
-						</select>
+						<SelectEquipment onChange={addExerciseDetails} />
 					</div>
 
 					<div className={styles.formInputGroup}>

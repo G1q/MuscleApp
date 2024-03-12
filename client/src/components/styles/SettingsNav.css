@@ -1,0 +1,37 @@
+.settings__title {
+	text-align: center;
+	margin-bottom: 1rem;
+}
+
+.settings__nav {
+	margin-block: 1rem;
+}
+
+.settings__nav--list {
+	display: flex;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	align-items: center;
+	justify-content: center;
+	gap: 2rem;
+}
+
+.settings__nav--list a {
+	text-decoration: none;
+	color: var(--neutral-clr-100);
+	background-color: var(--primary-clr);
+	font-size: 0.875rem;
+	padding: 0.5rem 2rem;
+	border-radius: 0.25em;
+	transition: all 250ms ease-in-out;
+}
+
+.settings__nav--list a.active {
+	background-color: rgb(11, 34, 101);
+}
+
+.settings__nav--list a:is(:hover, :focus-visible) {
+	outline-offset: 5px;
+	background-color: rgb(11, 34, 101);
+}

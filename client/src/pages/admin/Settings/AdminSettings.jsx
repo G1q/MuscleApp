@@ -1,7 +1,9 @@
+import SettingsNav from '../../../components/SettingsNav'
+
 const AdminSettings = () => {
 	return (
 		<main>
-			<h1>Website Settings</h1>
+			<SettingsNav />
 		</main>
 	)
 }

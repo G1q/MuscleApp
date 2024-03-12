@@ -13,8 +13,10 @@ const createSettings = async (req, res) => {
 }
 
 const getSettings = async (req, res) => {
+	const { type } = req.params
+
 	try {
-		const settings = await Settings.find({})
+		const settings = await Settings.find({ type })
 
 		res.status(200).json(settings)
 	} catch (error) {

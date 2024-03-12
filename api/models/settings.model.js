@@ -11,6 +11,9 @@ const settingsSchema = mongoose.Schema(
 			type: String,
 			required: true,
 		},
+		createdBy: {
+			type: String,
+		},
 	},
 	{ timestamps: true }
 )

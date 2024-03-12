@@ -4,7 +4,7 @@ const { createSettings, getSettings, getSingleSettings, updateSettings, deleteSe
 
 router.post('/', createSettings)
 
-router.get('/', getSettings)
+router.get('/:type', getSettings)
 router.get('/:id', getSingleSettings)
 
 router.put('/:id', updateSettings)

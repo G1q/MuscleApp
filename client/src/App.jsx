@@ -11,7 +11,7 @@ import EditCategory from './pages/admin/Categories/EditCategory'
 import Exercises from './pages/admin/Exercises/Exercises'
 import EditExercise from './pages/admin/Exercises/EditExercise'
 import CreateExercise from './pages/admin/Exercises/CreateExercise'
-import AdminSettings from './pages/admin/AdminSettings/'
+import AdminSettings from './pages/admin/Settings/AdminSettings/'
 import AdminStats from './pages/admin/AdminStats'
 import MainLayout from './layouts/MainLayout'
 import ExercisesList from './pages/Exercises'
@@ -27,6 +27,9 @@ import ExercisePage from './pages/ExercisePage'
 import Login from './pages/auth/Login'
 import { AuthProvider } from './contexts/AuthContext'
 import Register from './pages/auth/Register'
+import RolesSettings from './pages/admin/Settings/RolesSettings'
+import ExerciseTypeSettings from './pages/admin/Settings/ExerciseTypeSettings'
+import ExerciseEquipmentSettings from './pages/admin/Settings/ExerciseEquipmentSettings'
 
 function App() {
 	return (
@@ -86,6 +89,21 @@ function App() {
 					<Route
 						path="/admin/settings"
 						element={<AdminSettings />}
+					/>
+
+					<Route
+						path="/admin/settings/roles"
+						element={<RolesSettings />}
+					/>
+
+					<Route
+						path="/admin/settings/exercise-type"
+						element={<ExerciseTypeSettings />}
+					/>
+
+					<Route
+						path="/admin/settings/exercise-equipment"
+						element={<ExerciseEquipmentSettings />}
 					/>
 
 					<Route

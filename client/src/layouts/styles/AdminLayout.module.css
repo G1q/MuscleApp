@@ -1,8 +1,14 @@
 .container {
 	max-width: 1200px;
+	margin-inline: auto;
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 1rem;
+}
+
+.wrapper {
 	display: grid;
 	grid-template-columns: 200px auto;
-	margin-inline: auto;
 	gap: 1rem;
 }
 

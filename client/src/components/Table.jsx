@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import styles from './styles/Table.module.css'
 
 const Table = ({ headers, children, ...rest }) => {
