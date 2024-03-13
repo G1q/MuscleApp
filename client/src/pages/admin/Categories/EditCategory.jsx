@@ -4,29 +4,17 @@ import styles from './Category.module.css'
 import { useEffect, useState } from 'react'
 import axiosInstance from '../../../config/axios.config'
 import toast from 'react-hot-toast'
+import SelectCategories from '../../../components/SelectCategories'
 
 const EditCategory = () => {
 	const { slug } = useParams()
-	const [categories, setCategories] = useState([])
 	const [category, setCategory] = useState({})
 
 	const navigate = useNavigate()
 
 	useEffect(() => {
-		getCategories()
 		getCategory()
 	}, [])
-
-	const getCategories = async () => {
-		try {
-			const response = await axiosInstance.get('categories')
-			setCategories(response.data)
-		} catch (error) {
-			error.response.data.message
-				? toast.error(`Error ${error.response.status}: ${error.response.data.message}`, { position: 'top-right', id: 'get-categories' })
-				: toast.error(error.message, { position: 'top-right', id: 'get-categories' })
-		}
-	}
 
 	const getCategory = async () => {
 		try {
@@ -91,26 +79,10 @@ const EditCategory = () => {
 							/>
 						</div>
 
-						<div className={styles.formInputGroup}>
-							<label htmlFor="parent">Category: </label>
-							<select
-								type="text"
-								name="parent"
-								id="parent"
-								defaultValue={category.parent}
-								onChange={handleChanges}
-							>
-								<option value="0">Main category (no parent)</option>
-								{categories.map((category) => (
-									<option
-										key={category._id}
-										value={category.title}
-									>
-										{category.title}
-									</option>
-								))}
-							</select>
-						</div>
+						<SelectCategories
+							onChange={handleChanges}
+							className={styles.formInputGroup}
+						/>
 
 						<div className={styles.formInputGroup}>
 							<label htmlFor="slug">Slug: </label>

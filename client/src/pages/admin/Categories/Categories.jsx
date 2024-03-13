@@ -2,29 +2,15 @@
 import { RiDeleteBinLine, RiEditLine, RiEyeLine } from 'react-icons/ri'
 import { Link } from 'react-router-dom'
 import toast, { Toaster } from 'react-hot-toast'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Table from '../../../components/Table'
 import TableFilter from '../../../components/TableFilter'
 import axiosInstance from '../../../config/axios.config'
+import useFetchData from '../../../hooks/useFetchData'
 
 const Categories = () => {
-	const [categories, setCategories] = useState([])
 	const [searchQuery, setSearchQuery] = useState('')
-
-	useEffect(() => {
-		getCategories()
-	}, [])
-
-	const getCategories = async () => {
-		try {
-			const response = await axiosInstance.get('categories')
-			setCategories(response.data)
-		} catch (error) {
-			error.response.data.message
-				? toast.error(`Error ${error.response.status}: ${error.response.data.message}`, { position: 'top-right', id: 'get-categories' })
-				: toast.error(error.message, { position: 'top-right', id: 'get-categories' })
-		}
-	}
+	const { data: categories } = useFetchData('categories')
 
 	const deleteCategory = async (id) => {
 		const confirm = window.confirm('Are you sure you want to delete this category?')
@@ -32,7 +18,6 @@ const Categories = () => {
 		if (confirm) {
 			try {
 				await axiosInstance.delete(`categories/${id}`)
-				getCategories()
 				toast.success(`Category deleted successfully!`, { position: 'top-right', id: 'delete-category' })
 			} catch (error) {
 				error.response.data.message
