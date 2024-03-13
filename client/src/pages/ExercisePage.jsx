@@ -1,6 +1,8 @@
 /* eslint-disable react/no-unknown-property */
 import { Link, useParams } from 'react-router-dom'
 import './styles/Exercises.css'
+import useFetchData from '../hooks/useFetchData'
+import PlaceholderAvatar from '../components/PlaceholderAvatar'
 
 const EXERCISE = {
 	id: 1,
@@ -39,25 +41,29 @@ const EXERCISE = {
 const ExercisePage = () => {
 	const { slug } = useParams()
 
+	const { data: exercise } = useFetchData(`exercises/${slug}`)
+
 	return (
 		<main>
-			<h1 className="main__title">
-				{slug} - {EXERCISE.title}
-			</h1>
-			{EXERCISE.active ? (
+			<h1 className="main__title">{exercise.title}</h1>
+			{exercise.active ? (
 				<section className="exercises__section exercises__section--page">
 					<div className="exercises__section--media">
 						<div className="exercises__section--gallery">
-							<img
-								src={EXERCISE.media.image.main}
-								alt={EXERCISE.title}
-							/>
+							{exercise.imageURL ? (
+								<img
+									src={exercise.imageURL}
+									alt=""
+								/>
+							) : (
+								<PlaceholderAvatar />
+							)}
 						</div>
 						<div className="exercises__section--videos">
 							<iframe
 								// width="560"
 								// height="315"
-								src={`https://www.youtube.com/embed/${EXERCISE.media.video.youtube}`}
+								src={`https://www.youtube.com/embed/${exercise.videoURL}`}
 								title="YouTube video player"
 								frameborder="0"
 								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
@@ -67,22 +73,22 @@ const ExercisePage = () => {
 					<div className="exercises__section--details">
 						<h2>Details</h2>
 						<p>
-							Type: <span>{EXERCISE.type}</span>
+							Type: <span>{exercise.type}</span>
 						</p>
 						<p>
-							Equipment: <span>{EXERCISE.equipment}</span>
+							Equipment: <span>{exercise.equipment}</span>
 						</p>
 						<p>
-							Target muscle: <span>{EXERCISE.category}</span>
+							Target muscle: <span>{exercise.parent}</span>
 						</p>
 						<p>
-							Description: <span>{EXERCISE.description}</span>
+							Description: <span>{exercise.description}</span>
 						</p>
-						{EXERCISE.steps.length > 0 && (
+						{exercise.steps.length > 0 && (
 							<ol>
 								<p>Steps:</p>
-								{EXERCISE.steps.map((step) => (
-									<li key={step.id}>{step.description}</li>
+								{exercise.steps.map((step) => (
+									<li key={step}>{step}</li>
 								))}
 							</ol>
 						)}

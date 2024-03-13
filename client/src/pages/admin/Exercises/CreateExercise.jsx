@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import SelectExerciseType from '../../../components/SelectExerciseType'
 import SelectEquipment from '../../../components/SelectEquipment'
 import SelectCategories from '../../../components/SelectCategories'
+import { getVideoIDFromYoutubeURL } from '../../../utilities/getVideoID'
 
 const CreateExercise = () => {
 	const [exercise, setExercise] = useState({ steps: [] })
@@ -15,8 +16,8 @@ const CreateExercise = () => {
 	const navigate = useNavigate()
 
 	const addExerciseDetails = (e) => {
-		if (e.target.name === 'imageURL' || e.target.name === 'videoURL') {
-			setExercise((prev) => ({ ...prev, media: { ...prev.media, [e.target.name]: e.target.value } }))
+		if (e.target.name === 'videoURL') {
+			setExercise((prev) => ({ ...prev, videoURL: getVideoIDFromYoutubeURL(e.target.value) }))
 		} else {
 			setExercise((prev) => ({ ...prev, [e.target.name]: e.target.value }))
 		}

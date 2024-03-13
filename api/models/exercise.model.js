@@ -11,13 +11,11 @@ const exerciseSchema = mongoose.Schema(
 			type: String,
 			default: 0,
 		},
-		media: {
-			imageURL: {
-				type: String,
-			},
-			videoURL: {
-				type: String,
-			},
+		imageURL: {
+			type: String,
+		},
+		videoURL: {
+			type: String,
 		},
 		type: {
 			type: String,

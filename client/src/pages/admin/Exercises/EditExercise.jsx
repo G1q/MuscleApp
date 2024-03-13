@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useNavigate, useParams } from 'react-router-dom'
 import styles from './Exercise.module.css'
 import SelectExerciseType from '../../../components/SelectExerciseType'
@@ -6,6 +7,7 @@ import { useEffect, useState } from 'react'
 import axiosInstance from '../../../config/axios.config'
 import toast, { Toaster } from 'react-hot-toast'
 import SelectCategories from '../../../components/SelectCategories'
+import { getVideoIDFromYoutubeURL } from '../../../utilities/getVideoID'
 
 const EditExercise = () => {
 	const { slug } = useParams()
@@ -34,13 +36,10 @@ const EditExercise = () => {
 				...prev,
 				active: e.target.value === 'Yes' ? true : false,
 			}))
-		} else if (e.target.name === 'imageURL' || e.target.name === 'videoURL') {
+		} else if (e.target.name === 'videoURL') {
 			setExercise((prev) => ({
 				...prev,
-				media: {
-					...prev.media,
-					[e.target.name]: e.target.value,
-				},
+				videoURL: getVideoIDFromYoutubeURL(e.target.value),
 			}))
 		} else {
 			setExercise((prev) => ({

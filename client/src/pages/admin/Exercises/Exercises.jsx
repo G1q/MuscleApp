@@ -46,7 +46,7 @@ const Exercises = () => {
 								.map((exercise) => (
 									<tr key={exercise._id}>
 										<td>{exercise.title}</td>
-										<td>{exercise.parent}</td>
+										<td>{exercise.parent != 0 && exercise.parent}</td>
 										<td>{exercise.type}</td>
 										<td>{exercise.equipment}</td>
 										<td>{exercise.active ? 'Yes' : 'No'}</td>
