@@ -4,40 +4,6 @@ import './styles/Exercises.css'
 import useFetchData from '../hooks/useFetchData'
 import PlaceholderAvatar from '../components/PlaceholderAvatar'
 
-const EXERCISE = {
-	id: 1,
-	title: 'Shoulder shrug',
-	equipment: 'Dumbells',
-	type: 'Strength',
-	category: 'Lateral deltoid',
-	description:
-		'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam porro sint tempora ab voluptatem molestiae molestias incidunt libero at itaque. Tenetur quidem atque, reiciendis officiis quis cupiditate, recusandae id corporis quos maiores doloremque in. Voluptatibus quo, aut saepe, at odit enim labore omnis delectus suscipit nulla ex necessitatibus magnam sed.',
-	steps: [
-		{
-			id: 1,
-			description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatum, amet.',
-		},
-		{
-			id: 2,
-			description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatum, amet.',
-		},
-		{
-			id: 3,
-			description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatum, amet.',
-		},
-	],
-	slug: 'shoulder-shrug',
-	media: {
-		image: {
-			main: 'https://hips.hearstapps.com/menshealth-uk/main/thumbs/33510/dumbbell-shrug.jpg',
-		},
-		video: {
-			youtube: 'YT6qn6HVQyE',
-		},
-	},
-	active: true,
-}
-
 const ExercisePage = () => {
 	const { slug } = useParams()
 
