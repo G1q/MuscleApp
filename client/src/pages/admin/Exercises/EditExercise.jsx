@@ -1,60 +1,79 @@
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import styles from './Exercise.module.css'
-import EXERCISE_TYPE from '../../../utils/exerciseTypes'
-import EQUIPMENT from '../../../utils/equipment'
-
-const EXERCISE = {
-	id: 1,
-	title: 'Bench press',
-	category: 'Arms',
-	media: {
-		imageURL: 'https://image.com/123',
-		videoURL: 'https://youtube.com/video/123',
-	},
-	type: 'Strength',
-	equipment: 'Dumbell',
-	description:
-		'Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus alias in quod perspiciatis. Neque blanditiis minima ad repellat distinctio libero eaque fuga non aliquam quidem natus temporibus quia provident, pariatur enim, sit earum sapiente omnis! Adipisci officia officiis, porro nostrum, fugiat quam fuga atque accusamus aperiam est saepe, reiciendis ullam? Nemo cupiditate facilis blanditiis a perspiciatis. Itaque ducimus officia sapiente quo ex architecto consequatur, voluptatum expedita voluptatibus? Inventore rerum commodi, corporis velit impedit illo ullam in adipisci sed, accusamus dolorum minima molestiae atque, aspernatur necessitatibus sequi voluptas exercitationem et obcaecati qui ratione voluptate. Provident modi numquam quaerat sed pariatur est!',
-	steps: [
-		'Lorem1 ipsum dolor sit amet consectetur adipisicing elit.',
-		'Lorem2 ipsum dolor sit amet consectetur adipisicing elit.',
-		'Lorem3 ipsum dolor sit amet consectetur adipisicing elit.',
-	],
-	slug: 'bench-press',
-	active: true,
-}
-
-const CATEGORIES = [
-	{
-		id: 1,
-		title: 'Traps',
-	},
-	{
-		id: 2,
-		title: 'Deltoids',
-	},
-	{
-		id: 3,
-		title: 'Back',
-	},
-	{
-		id: 4,
-		title: 'Arms',
-	},
-	{
-		id: 5,
-		title: 'Calfs',
-	},
-]
+import SelectExerciseType from '../../../components/SelectExerciseType'
+import SelectEquipment from '../../../components/SelectEquipment'
+import { useEffect, useState } from 'react'
+import axiosInstance from '../../../config/axios.config'
+import toast, { Toaster } from 'react-hot-toast'
+import SelectCategories from '../../../components/SelectCategories'
 
 const EditExercise = () => {
-	const { id } = useParams()
+	const { slug } = useParams()
+	const [exercise, setExercise] = useState({})
+
+	const navigate = useNavigate()
+
+	useEffect(() => {
+		getExercise()
+	}, [])
+
+	const getExercise = async () => {
+		try {
+			const response = await axiosInstance.get(`exercises/${slug}`)
+			setExercise(response.data)
+		} catch (error) {
+			error.response.data.message
+				? toast.error(`Error ${error.response.status}: ${error.response.data.message}`, { position: 'top-right', id: 'get-category' })
+				: toast.error(error.message, { position: 'top-right', id: 'get-category' })
+		}
+	}
+
+	const handleChanges = (e) => {
+		if (e.target.name === 'active') {
+			setExercise((prev) => ({
+				...prev,
+				active: e.target.value === 'Yes' ? true : false,
+			}))
+		} else if (e.target.name === 'imageURL' || e.target.name === 'videoURL') {
+			setExercise((prev) => ({
+				...prev,
+				media: {
+					...prev.media,
+					[e.target.name]: e.target.value,
+				},
+			}))
+		} else {
+			setExercise((prev) => ({
+				...prev,
+				[e.target.name]: e.target.value,
+			}))
+		}
+	}
+
+	const updateExercise = async () => {
+		try {
+			await axiosInstance.put(`/exercises/${slug}`, exercise)
+			toast.success('Category updated successfully!', { position: 'top-right', id: 'update-exercise' })
+			navigate('/admin/exercises')
+		} catch (error) {
+			console.log(error)
+			error.response.data.message
+				? toast.error(`Error ${error.response.status}: ${error.response.data.message}`, { position: 'top-right', id: 'update-exercise' })
+				: toast.error(error.message, { position: 'top-right', id: 'update-exercise' })
+		}
+	}
 
 	return (
 		<main>
 			<div className={styles.flex}>
-				<h1 className={styles.profileTitle}>Edit {EXERCISE.title}</h1>
-				<button className={styles.btn}>Save changes</button>
+				<h1 className={styles.profileTitle}>Edit {exercise.title}</h1>
+				<button
+					className={styles.btn}
+					onClick={updateExercise}
+				>
+					Save changes
+				</button>
+				<Toaster />
 			</div>
 			<section className={styles.profileSection}>
 				<div>
@@ -62,77 +81,46 @@ const EditExercise = () => {
 						<div className={styles.formInputGroup}>
 							<label htmlFor="title">Title: </label>
 							<input
-								value={EXERCISE.title}
+								value={exercise.title}
 								type="text"
 								id="title"
 								name="title"
+								onChange={handleChanges}
 							/>
 						</div>
 
-						<div className={styles.formInputGroup}>
-							<label htmlFor="category">Category: </label>
-							<select
-								type="text"
-								name="category"
-								id="category"
-								defaultValue={EXERCISE.category}
-							>
-								{CATEGORIES.map((category) => (
-									<option
-										key={category.id}
-										value={category.title}
-									>
-										{category.title}
-									</option>
-								))}
-							</select>
-						</div>
+						<SelectCategories
+							className={styles.formInputGroup}
+							onChange={handleChanges}
+						/>
 
 						<div className={styles.formInputGroup}>
 							<label htmlFor="slug">Slug: </label>
 							<input
-								value={EXERCISE.slug}
+								value={exercise.slug}
 								type="text"
 								id="slug"
 								name="slug"
+								onChange={handleChanges}
 							/>
 						</div>
 
-						<div className={styles.formInputGroup}>
-							<label htmlFor="type">Type: </label>
-							<select defaultValue={EXERCISE.type}>
-								{EXERCISE_TYPE.map((type) => (
-									<option
-										key={type}
-										value={type}
-									>
-										{type}
-									</option>
-								))}
-							</select>
-						</div>
+						<SelectExerciseType
+							className={styles.formInputGroup}
+							onChange={handleChanges}
+						/>
 
-						<div className={styles.formInputGroup}>
-							<label htmlFor="equipment">Equipment: </label>
-							<select
-								defaultValue={EXERCISE.equipment}
-								name="equipment"
-								id="equipment"
-							>
-								{EQUIPMENT.map((equipment) => (
-									<option
-										key={equipment}
-										value={equipment}
-									>
-										{equipment}
-									</option>
-								))}
-							</select>
-						</div>
+						<SelectEquipment
+							className={styles.formInputGroup}
+							onChange={handleChanges}
+						/>
 
 						<div className={styles.formInputGroup}>
 							<label htmlFor="active">Active: </label>
-							<select defaultValue={EXERCISE.active ? 'Yes' : 'No'}>
+							<select
+								defaultValue={exercise.active ? 'Yes' : 'No'}
+								onChange={handleChanges}
+							>
 								<option value="Yes">Yes</option>
 								<option value="No">No</option>
 							</select>
@@ -144,27 +132,28 @@ const EditExercise = () => {
 								name="description"
 								id="description"
 								rows={5}
-								defaultValue={EXERCISE.description}
+								value={exercise.description}
+								onChange={handleChanges}
 							></textarea>
 						</div>
 
 						<div className={styles.formInputGroup}>
 							<label htmlFor="imageURL">Image URL: </label>
 							<input
-								value={EXERCISE.media.imageURL}
 								type="text"
 								id="imageURL"
 								name="imageURL"
+								onChange={handleChanges}
 							/>
 						</div>
 
 						<div className={styles.formInputGroup}>
 							<label htmlFor="videoURL">Video URL: </label>
 							<input
-								value={EXERCISE.media.videoURL}
 								type="text"
 								id="videoURL"
 								name="videoURL"
+								onChange={handleChanges}
 							/>
 						</div>
 					</form>

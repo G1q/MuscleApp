@@ -78,7 +78,7 @@ function App() {
 						element={<Exercises />}
 					/>
 					<Route
-						path="/admin/exercises/edit/:id"
+						path="/admin/exercises/edit/:slug"
 						element={<EditExercise />}
 					/>
 					<Route

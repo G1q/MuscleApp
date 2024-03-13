@@ -11,9 +11,9 @@ const createUser = async (req, res) => {
 		const existingUsername = await User.findOne({ username })
 		const existingEmail = await User.findOne({ email })
 
-		if (existingUsername) return res.status(400).json({ message: 'This user is allready taken!' })
+		if (existingUsername) return res.status(400).json({ message: 'This user is already taken!' })
 
-		if (existingEmail) return res.status(400).json({ message: 'This email is allready taken!' })
+		if (existingEmail) return res.status(400).json({ message: 'This email is already taken!' })
 
 		// Hash the password
 		const hashedPassword = await bcrypt.hash(password, 10)
@@ -66,11 +66,11 @@ const updateUser = async (req, res) => {
 
 		// Check if it's another user with the same email, but continue if the new email is same with user email
 		const existingEmail = await User.findOne({ email })
-		if (existingEmail && user.email !== email) return res.status(400).json({ message: 'This email is allready taken by another user!' })
+		if (existingEmail && user.email !== email) return res.status(400).json({ message: 'This email is already taken by another user!' })
 
 		// Check if it's another user with the same username, but continue if the new username is same with user username
 		const existingUsername = await User.findOne({ username })
-		if (existingUsername && user.username !== username) return res.status(400).json({ message: 'This username is allready taken!' })
+		if (existingUsername && user.username !== username) return res.status(400).json({ message: 'This username is already taken!' })
 
 		// Check if password is changed
 		if (password) hashedPassword = await bcrypt.hash(password, 10)

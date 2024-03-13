@@ -4,7 +4,7 @@ import styles from './Users.module.css'
 import { useEffect, useState } from 'react'
 import axiosInstance from '../../../config/axios.config'
 import toast, { Toaster } from 'react-hot-toast'
-import { formatFullDate } from '../../../utils/formatDate'
+import { formatFullDate } from '../../../utilities/formatDate'
 import PlaceholderAvatar from '../../../components/PlaceholderAvatar'
 import { useAuth } from '../../../contexts/AuthContext'
 

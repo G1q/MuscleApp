@@ -5,7 +5,7 @@ const createCategory = async (req, res) => {
 		// Check if the category exist
 		const existingCategory = await Category.findOne({ title: req.body.title })
 
-		if (existingCategory) return res.status(400).json({ message: 'This category allready exist!' })
+		if (existingCategory) return res.status(400).json({ message: 'This category already exist!' })
 
 		//Create new category
 		const category = new Category({ ...req.body })
@@ -48,11 +48,11 @@ const updateCategory = async (req, res) => {
 
 		// Check if it's another category with the same title
 		const existingTitle = await Category.findOne({ title: req.body.title })
-		if (existingTitle && category.title !== req.body.title) return res.status(400).json({ message: 'This category title is allready taken!' })
+		if (existingTitle && category.title !== req.body.title) return res.status(400).json({ message: 'This category title is already taken!' })
 
 		// Check if it's another category with the same slug
 		const existingSlug = await Category.findOne({ slug: req.body.slug })
-		if (existingSlug && category.slug !== req.body.slug) return res.status(400).json({ message: 'This category slug is allready taken!' })
+		if (existingSlug && category.slug !== req.body.slug) return res.status(400).json({ message: 'This category slug is already taken!' })
 
 		const updatedCategory = await Category.findByIdAndUpdate(category.id, { ...req.body }, { new: true })
 

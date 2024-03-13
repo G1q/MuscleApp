@@ -1,30 +1,12 @@
 /* eslint-disable react/prop-types */
 
-import { useEffect, useState } from 'react'
-import axiosInstance from '../config/axios.config'
-import toast, { Toaster } from 'react-hot-toast'
+import useFetchData from '../hooks/useFetchData'
 
-const SelectEquipment = ({ onChange }) => {
-	const [equipments, setEquipments] = useState([])
-
-	useEffect(() => {
-		getEquipments()
-	}, [])
-
-	const getEquipments = async () => {
-		try {
-			const response = await axiosInstance.get('settings/equipment')
-			setEquipments(response.data)
-		} catch (error) {
-			error.response.data.message
-				? toast.error(`Error ${error.response.status}: ${error.response.data.message}`, { position: 'bottom-right', id: 'get-equipments' })
-				: toast.error(error.message, { position: 'bottom-right', id: 'get-equipments' })
-		}
-	}
+const SelectEquipment = ({ onChange, className }) => {
+	const { data: equipments } = useFetchData('settings/equipment')
 
 	return (
-		<>
-			<Toaster />
+		<div className={className}>
 			<label htmlFor="equipment">Equipment:</label>
 			<select
 				name="equipment"
@@ -47,7 +29,7 @@ const SelectEquipment = ({ onChange }) => {
 					</option>
 				))}
 			</select>
-		</>
+		</div>
 	)
 }
 

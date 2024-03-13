@@ -1,30 +1,11 @@
 /* eslint-disable react/prop-types */
+import useFetchData from '../hooks/useFetchData'
 
-import { useEffect, useState } from 'react'
-import axiosInstance from '../config/axios.config'
-import toast, { Toaster } from 'react-hot-toast'
-
-const SelectExerciseType = ({ onChange }) => {
-	const [types, setTypes] = useState([])
-
-	useEffect(() => {
-		getTypes()
-	}, [])
-
-	const getTypes = async () => {
-		try {
-			const response = await axiosInstance.get('settings/exercise-type')
-			setTypes(response.data)
-		} catch (error) {
-			error.response.data.message
-				? toast.error(`Error ${error.response.status}: ${error.response.data.message}`, { position: 'bottom-right', id: 'get-types' })
-				: toast.error(error.message, { position: 'bottom-right', id: 'get-types' })
-		}
-	}
+const SelectExerciseType = ({ onChange, className }) => {
+	const { data: types } = useFetchData('settings/exercise-type')
 
 	return (
-		<>
-			<Toaster />
+		<div className={className}>
 			<label htmlFor="type">Type:</label>
 			<select
 				name="type"
@@ -42,7 +23,7 @@ const SelectExerciseType = ({ onChange }) => {
 					</option>
 				))}
 			</select>
-		</>
+		</div>
 	)
 }
 

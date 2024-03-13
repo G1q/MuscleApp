@@ -1,31 +1,17 @@
 import { RiDeleteBinLine, RiEditLine, RiEyeLine } from 'react-icons/ri'
 import { Link } from 'react-router-dom'
 import toast, { Toaster } from 'react-hot-toast'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Table from '../../../components/Table'
 import TableFilter from '../../../components/TableFilter'
 import axiosInstance from '../../../config/axios.config'
 import { useAuth } from '../../../contexts/AuthContext'
+import useFetchData from '../../../hooks/useFetchData'
 
 const Users = () => {
 	const { getUserId } = useAuth()
-	const [users, setUsers] = useState([])
 	const [searchQuery, setSearchQuery] = useState('')
-
-	useEffect(() => {
-		getUsers()
-	}, [])
-
-	const getUsers = async () => {
-		try {
-			const response = await axiosInstance.get('users')
-			setUsers(response.data)
-		} catch (error) {
-			error.response.data.message
-				? toast.error(`Error ${error.response.status}: ${error.response.data.message}`, { position: 'top-right', id: 'get-users' })
-				: toast.error(error.message, { position: 'top-right', id: 'get-users' })
-		}
-	}
+	const { data: users } = useFetchData('users')
 
 	const deleteUser = async (id) => {
 		const confirmation = window.confirm('Are you sure you want to delete this user?')
@@ -34,7 +20,6 @@ const Users = () => {
 			try {
 				await axiosInstance.delete(`/users/${id}`)
 				toast.success(`User deleted successfully!`, { position: 'top-right', id: 'delete-user' })
-				getUsers()
 			} catch (error) {
 				error.response.data.message
 					? toast.error(`Error ${error.response.status}: ${error.response.data.message}`, { position: 'top-right', id: 'get-users' })
