@@ -42,7 +42,7 @@ const Categories = () => {
 							{categories
 								.filter((category) => category.title.concat(category.parent).toLowerCase().includes(searchQuery))
 								.map((category) => (
-									<tr key={category.id}>
+									<tr key={category._id}>
 										<td>{category.title}</td>
 										<td>{category.parent != 0 && category.parent}</td>
 										<td>{category.active ? 'Yes' : 'No'}</td>

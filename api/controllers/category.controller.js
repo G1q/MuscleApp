@@ -28,6 +28,16 @@ const getCategories = async (req, res) => {
 	}
 }
 
+const getCategoriesWithParam = async (req, res) => {
+	try {
+		const categories = await Category.find({ parent: req.params.title })
+
+		res.status(200).json(categories)
+	} catch (error) {
+		res.status(500).json({ message: 'Internal server error' })
+	}
+}
+
 const getCategory = async (req, res) => {
 	const { slug } = req.params
 
@@ -73,4 +83,4 @@ const deleteCategory = async (req, res) => {
 	}
 }
 
-module.exports = { createCategory, getCategories, getCategory, updateCategory, deleteCategory }
+module.exports = { createCategory, getCategories, getCategory, updateCategory, deleteCategory, getCategoriesWithParam }

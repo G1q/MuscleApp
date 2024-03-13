@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { LuChevronsRight } from 'react-icons/lu'
 import './styles/Breadcrumbs.css'
 
-const Breadcrumbs = ({ type, category, parent }) => {
+const Breadcrumbs = ({ type, category, parent = 0 }) => {
 	let mainCategory = ''
 
 	if (type === 'muscles')
