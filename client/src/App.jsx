@@ -65,7 +65,7 @@ function App() {
 						element={<Categories />}
 					/>
 					<Route
-						path="/admin/categories/edit/:id"
+						path="/admin/categories/edit/:slug"
 						element={<EditCategory />}
 					/>
 					<Route

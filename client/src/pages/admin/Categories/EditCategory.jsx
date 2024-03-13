@@ -1,51 +1,81 @@
-import { useParams } from 'react-router-dom'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useNavigate, useParams } from 'react-router-dom'
 import styles from './Category.module.css'
-
-const CATEGORY = {
-	id: 5,
-	title: 'Gluteus maximus',
-	parent: 'Arms',
-	media: {
-		imageURL: 'https://c02.purpledshub.com/uploads/sites/46/2021/05/Trapezius-stretches-d9d0383.jpg?w=1029&webp=1',
-		videoURL: 'https://www.youtube.com/watch?v=w7OSC-RfKOI',
-	},
-	description:
-		'Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus alias in quod perspiciatis. Neque blanditiis minima ad repellat distinctio libero eaque fuga non aliquam quidem natus temporibus quia provident, pariatur enim, sit earum sapiente omnis! Adipisci officia officiis, porro nostrum, fugiat quam fuga atque accusamus aperiam est saepe, reiciendis ullam? Nemo cupiditate facilis blanditiis a perspiciatis. Itaque ducimus officia sapiente quo ex architecto consequatur, voluptatum expedita voluptatibus? Inventore rerum commodi, corporis velit impedit illo ullam in adipisci sed, accusamus dolorum minima molestiae atque, aspernatur necessitatibus sequi voluptas exercitationem et obcaecati qui ratione voluptate. Provident modi numquam quaerat sed pariatur est!',
-	slug: 'front-deltoids',
-	active: true,
-}
-
-const CATEGORIES = [
-	{
-		id: 1,
-		title: 'Traps',
-	},
-	{
-		id: 2,
-		title: 'Deltoids',
-	},
-	{
-		id: 3,
-		title: 'Back',
-	},
-	{
-		id: 4,
-		title: 'Arms',
-	},
-	{
-		id: 5,
-		title: 'Calfs',
-	},
-]
+import { useEffect, useState } from 'react'
+import axiosInstance from '../../../config/axios.config'
+import toast from 'react-hot-toast'
 
 const EditCategory = () => {
-	const { id } = useParams()
+	const { slug } = useParams()
+	const [categories, setCategories] = useState([])
+	const [category, setCategory] = useState({})
+
+	const navigate = useNavigate()
+
+	useEffect(() => {
+		getCategories()
+		getCategory()
+	}, [])
+
+	const getCategories = async () => {
+		try {
+			const response = await axiosInstance.get('categories')
+			setCategories(response.data)
+		} catch (error) {
+			error.response.data.message
+				? toast.error(`Error ${error.response.status}: ${error.response.data.message}`, { position: 'top-right', id: 'get-categories' })
+				: toast.error(error.message, { position: 'top-right', id: 'get-categories' })
+		}
+	}
+
+	const getCategory = async () => {
+		try {
+			const response = await axiosInstance.get(`categories/${slug}`)
+			setCategory(response.data)
+		} catch (error) {
+			error.response.data.message
+				? toast.error(`Error ${error.response.status}: ${error.response.data.message}`, { position: 'top-right', id: 'get-category' })
+				: toast.error(error.message, { position: 'top-right', id: 'get-category' })
+		}
+	}
+
+	const handleChanges = (e) => {
+		if (e.target.name === 'active') {
+			setCategory((prev) => ({
+				...prev,
+				active: e.target.value === 'Yes' ? true : false,
+			}))
+		} else {
+			setCategory((prev) => ({
+				...prev,
+				[e.target.name]: e.target.value,
+			}))
+		}
+	}
+
+	const updateCategory = async () => {
+		try {
+			await axiosInstance.put(`/categories/${slug}`, category)
+			toast.success('Category updated successfully!', { position: 'top-right', id: 'update-category' })
+			navigate('/admin/categories')
+		} catch (error) {
+			console.log(error)
+			error.response.data.message
+				? toast.error(`Error ${error.response.status}: ${error.response.data.message}`, { position: 'top-right', id: 'update-category' })
+				: toast.error(error.message, { position: 'top-right', id: 'update-category' })
+		}
+	}
 
 	return (
 		<main>
 			<div className={styles.flex}>
-				<h1 className={styles.profileTitle}>Edit {CATEGORY.title}</h1>
-				<button className={styles.btn}>Save changes</button>
+				<h1 className={styles.profileTitle}>Edit {category.title}</h1>
+				<button
+					className={styles.btn}
+					onClick={updateCategory}
+				>
+					Save changes
+				</button>
 			</div>
 			<section className={styles.profileSection}>
 				<div>
@@ -53,24 +83,27 @@ const EditCategory = () => {
 						<div className={styles.formInputGroup}>
 							<label htmlFor="title">Title: </label>
 							<input
-								value={CATEGORY.title}
+								value={category.title}
 								type="text"
 								id="title"
 								name="title"
+								onChange={handleChanges}
 							/>
 						</div>
 
 						<div className={styles.formInputGroup}>
-							<label htmlFor="category">Category: </label>
+							<label htmlFor="parent">Category: </label>
 							<select
 								type="text"
-								name="category"
-								id="category"
-								defaultValue={CATEGORY.parent}
+								name="parent"
+								id="parent"
+								defaultValue={category.parent}
+								onChange={handleChanges}
 							>
-								{CATEGORIES.map((category) => (
+								<option value="0">Main category (no parent)</option>
+								{categories.map((category) => (
 									<option
-										key={category.id}
+										key={category._id}
 										value={category.title}
 									>
 										{category.title}
@@ -82,18 +115,33 @@ const EditCategory = () => {
 						<div className={styles.formInputGroup}>
 							<label htmlFor="slug">Slug: </label>
 							<input
-								value={CATEGORY.slug}
+								value={category.slug}
 								type="text"
 								id="slug"
 								name="slug"
+								onChange={handleChanges}
 							/>
 						</div>
 						<div className={styles.formInputGroup}>
-							<label htmlFor="active">Active: </label>
-							<select defaultValue={CATEGORY.active ? 'Yes' : 'No'}>
-								<option value="Yes">Yes</option>
-								<option value="No">No</option>
-							</select>
+							<p>Active:</p>
+							<label htmlFor="active-true">True: </label>
+							<input
+								type="radio"
+								name="active"
+								id="active-true"
+								value="Yes"
+								checked={category.active}
+								onChange={handleChanges}
+							/>
+							<label htmlFor="active-false">False: </label>
+							<input
+								type="radio"
+								name="active"
+								id="active-false"
+								value="No"
+								checked={!category.active}
+								onChange={handleChanges}
+							/>
 						</div>
 
 						<div className={styles.formInputGroup}>
@@ -102,47 +150,22 @@ const EditCategory = () => {
 								name="description"
 								id="description"
 								rows={5}
-								defaultValue={CATEGORY.description}
+								defaultValue={category.description}
+								onChange={handleChanges}
 							></textarea>
 						</div>
 
 						<div className={styles.formInputGroup}>
 							<label htmlFor="imageURL">Image URL: </label>
 							<input
-								value={CATEGORY.media.imageURL}
+								value={category.imageURL}
 								type="text"
 								id="imageURL"
 								name="imageURL"
-							/>
-						</div>
-
-						<div className={styles.formInputGroup}>
-							<label htmlFor="videoURL">Video URL: </label>
-							<input
-								value={CATEGORY.media.videoURL}
-								type="text"
-								id="videoURL"
-								name="videoURL"
+								onChange={handleChanges}
 							/>
 						</div>
 					</form>
-				</div>
-				<div>
-					{/* <img
-						src={CATEGORY.media.imageURL}
-						alt="category picture"
-						className={styles.categoryPicture}
-					/> */}
-
-					{/* <iframe
-						width="560"
-						height="315"
-						src={`https://www.youtube.com/embed/${CATEGORY.media.videoURL.slice(CATEGORY.media.videoURL.indexOf('=') + 1)}`}
-						title="YouTube video player"
-						frameborder="0"
-						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-						allowfullscreen
-					></iframe> */}
 				</div>
 			</section>
 		</main>
