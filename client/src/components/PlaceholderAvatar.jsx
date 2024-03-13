@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 const PlaceholderAvatar = ({ className }) => {
-	const imageURL = 'https://placehold.co/200x200'
+	const imageURL = 'https://placehold.co/600x300'
 
 	return (
 		<img

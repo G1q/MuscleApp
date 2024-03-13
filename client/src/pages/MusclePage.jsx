@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import axiosInstance from '../config/axios.config'
 import toast from 'react-hot-toast'
 import useFetchData from '../hooks/useFetchData'
+import PlaceholderAvatar from '../components/PlaceholderAvatar'
 
 const MusclePage = () => {
 	const { slug } = useParams()
@@ -40,10 +41,14 @@ const MusclePage = () => {
 					<div className="muscles__section--info">
 						<div className="muscles__section--gallery">
 							{/* TODO: create image gallery */}
-							<img
-								src={category.imageURL}
-								alt={category.title}
-							/>
+							{category.imageURL ? (
+								<img
+									src={category.imageURL}
+									alt={category.title}
+								/>
+							) : (
+								<PlaceholderAvatar />
+							)}
 						</div>
 						<div className="muscles__section--actions">
 							{children.length > 0 && (
