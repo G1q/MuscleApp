@@ -5,29 +5,27 @@ import FilterCategory from '../components/FilterCategory'
 import Filter from '../components/Filter'
 import useFetchData from '../hooks/useFetchData'
 
-const EQUIPMENTS = ['None', 'Body only', 'Dumbell', 'Kettlebell', 'Barbell', 'Band']
-
-const TYPES = ['Strength', 'Cardio', 'Stretching']
-
 const Exercises = () => {
 	const { data: categories } = useFetchData('categories')
 	const { data: exercises } = useFetchData('exercises')
+	const { data: types } = useFetchData('settings/exercise-type')
+	const { data: equipments } = useFetchData('settings/equipment')
 
 	return (
 		<main>
 			<h1 className="main__title">Exercises</h1>
 			<div className="exercises__wrapper">
 				<Filter title="Exercises filters">
-					{/* <FilterCategory
+					<FilterCategory
 						categories={categories}
 						title="Muscle"
-					/> */}
+					/>
 					<FilterCategory
-						categories={EQUIPMENTS}
+						categories={equipments}
 						title="Equipment"
 					/>
 					<FilterCategory
-						categories={TYPES}
+						categories={types}
 						title="Type"
 					/>
 				</Filter>
@@ -36,9 +34,9 @@ const Exercises = () => {
 					{/* TODO: Image map */}
 					{/* TODO: Temporarly: links, remove after image map */}
 					<ul className="exercises__categories--list">
-						{categories.map((category, index) => (
+						{categories.map((category) => (
 							<li
-								key={index}
+								key={category._id}
 								className="exercises__categories--list-item"
 							>
 								<Link

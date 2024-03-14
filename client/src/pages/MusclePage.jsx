@@ -55,19 +55,19 @@ const MusclePage = () => {
 								<ul>
 									<h2>Subcategories:</h2>
 									{children.map((child) => (
-										<li key={child.id}>
+										<li key={child._id}>
 											<Link to={`/muscles/${child.slug}`}>{child.title}</Link>
 										</li>
 									))}
 								</ul>
 							)}
 							<div className="muscles__section--buttons">
-								<Link to={`/exercises/${category.slug}`}>{`Exercises for ${category.title}`}</Link>
+								<Link to={`/exercises/category/${category.slug}`}>{`Exercises for ${category.title} (General)`}</Link>
 								{children.length > 0 &&
 									children.map((child) => (
 										<Link
 											key={child._id}
-											to={`/exercises/${child.slug}`}
+											to={`/exercises/category/${child.slug}`}
 										>{`Exercises form ${child.title}`}</Link>
 									))}
 							</div>

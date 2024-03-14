@@ -30,6 +30,7 @@ import Register from './pages/auth/Register'
 import RolesSettings from './pages/admin/Settings/RolesSettings'
 import ExerciseTypeSettings from './pages/admin/Settings/ExerciseTypeSettings'
 import ExerciseEquipmentSettings from './pages/admin/Settings/ExerciseEquipmentSettings'
+import ExercisesByCategory from './pages/ExercisesByCategory'
 
 function App() {
 	return (
@@ -129,6 +130,11 @@ function App() {
 					<Route
 						path="/exercises/:slug"
 						element={<ExercisePage />}
+					/>
+
+					<Route
+						path="/exercises/category/:slug"
+						element={<ExercisesByCategory />}
 					/>
 
 					<Route

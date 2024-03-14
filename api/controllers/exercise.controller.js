@@ -1,4 +1,5 @@
 const Exercise = require('../models/exercise.model.js')
+const Category = require('../models/category.model.js')
 
 const createExercise = async (req, res) => {
 	try {
@@ -24,6 +25,17 @@ const createExercise = async (req, res) => {
 const getExercises = async (req, res) => {
 	try {
 		const exercises = await Exercise.find({})
+
+		res.status(200).json(exercises)
+	} catch (error) {
+		res.status(500).json({ message: 'Internal server error' })
+	}
+}
+
+const getExercisesByCategory = async (req, res) => {
+	try {
+		const category = await Category.findOne({ slug: req.params.slug })
+		const exercises = await Exercise.find({ parent: category.title })
 
 		res.status(200).json(exercises)
 	} catch (error) {
@@ -76,4 +88,4 @@ const deleteExercise = async (req, res) => {
 	}
 }
 
-module.exports = { createExercise, getExercises, getExercise, updateExercise, deleteExercise }
+module.exports = { createExercise, getExercises, getExercise, updateExercise, deleteExercise, getExercisesByCategory }

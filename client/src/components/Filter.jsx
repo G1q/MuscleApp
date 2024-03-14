@@ -1,7 +1,12 @@
 /* eslint-disable react/prop-types */
 import './styles/Filter.css'
 
-const Filter = ({ title = 'Filters', onReset, children }) => {
+const Filter = ({ title = 'Filters', children }) => {
+	const resetAllFilters = () => {
+		const filters = document.querySelectorAll('.exercises__filter--option input[type="checkbox"]')
+		filters.forEach((filter) => (filter.checked = false))
+	}
+
 	return (
 		<aside className="filter">
 			<h2 className="filter__title">{title}</h2>
@@ -9,7 +14,7 @@ const Filter = ({ title = 'Filters', onReset, children }) => {
 				{children}
 				<button
 					type="button"
-					onClick={onReset}
+					onClick={resetAllFilters}
 				>
 					Reset all filters
 				</button>
