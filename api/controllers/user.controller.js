@@ -1,7 +1,5 @@
 const bcrypt = require('bcrypt')
 const User = require('../models/user.model.js')
-// const Task = require('../models/task.model.js')
-// const Project = require('../models/project.model.js')
 
 const createUser = async (req, res) => {
 	try {
@@ -48,7 +46,7 @@ const getUser = async (req, res) => {
 	const { id } = req.params
 
 	try {
-		const user = await User.findById(id).select('-password')
+		const user = await User.findById(id).select('-password').populate('favorites', 'title imageURL parent type equipment slug')
 
 		res.status(200).json(user)
 	} catch (error) {
@@ -58,7 +56,7 @@ const getUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
 	const { id } = req.params
-	const { username, email, password, role, active, firstName, lastName, birthdate, bio, avatar } = req.body
+	const { username, email, password, role, active, firstName, lastName, birthdate, bio, avatar, favorites } = req.body
 	let hashedPassword = password
 
 	try {
@@ -77,7 +75,7 @@ const updateUser = async (req, res) => {
 
 		const updatedUser = await User.findByIdAndUpdate(
 			id,
-			{ username, email, role, active, firstName, lastName, birthdate, bio, avatar, password: hashedPassword },
+			{ username, email, role, active, firstName, lastName, birthdate, bio, avatar, favorites, password: hashedPassword },
 			{ new: true }
 		)
 
@@ -89,12 +87,6 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
 	const { id } = req.params
-
-	// const tasks = await Task.countDocuments({ createdBy: id })
-	// if (tasks > 0) return res.status(403).json({ message: "You can't delete this user because have active tasks!" })
-
-	// const projects = await Project.countDocuments({ admin: id })
-	// if (projects > 0) return res.status(403).json({ message: "You can't delete this user because have active projects!" })
 
 	try {
 		const user = await User.findByIdAndDelete(id)

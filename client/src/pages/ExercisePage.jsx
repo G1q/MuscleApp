@@ -1,16 +1,39 @@
 /* eslint-disable react/no-unknown-property */
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import './styles/Exercises.css'
 import useFetchData from '../hooks/useFetchData'
 import PlaceholderAvatar from '../components/PlaceholderAvatar'
+import axiosInstance from '../config/axios.config'
+import toast, { Toaster } from 'react-hot-toast'
+import { useAuth } from '../contexts/AuthContext'
+// import { useState } from 'react'
 
 const ExercisePage = () => {
 	const { slug } = useParams()
-
 	const { data: exercise } = useFetchData(`exercises/${slug}`)
+	const { getUserId } = useAuth()
+	// const [favorite, setFavorite] = useState(false)
+
+	const id = getUserId()
+	const { data: user } = useFetchData(`/users/${id}`)
+
+	const navigate = useNavigate()
 
 	const saveToFavorites = async () => {
-		// TODO: after favs crud
+		if (user.favorites && user.favorites.some((favExercise) => favExercise._id === exercise._id))
+			return toast.error(`Exercise already in favorites list`, { position: 'bottom-right', id: 'add-to-fav-list' })
+
+		user.favorites = [...user.favorites, exercise._id]
+
+		try {
+			await axiosInstance.put(`/users/${id}`, user)
+			toast.success('Exercise added to favorites list!', { position: 'top-right', id: 'add-to-fav-list' })
+			navigate(0)
+		} catch (error) {
+			error.response.data.message
+				? toast.error(`Error ${error.response.status}: ${error.response.data.message}`, { position: 'top-right', id: 'add-to-fav-list' })
+				: toast.error(error.message, { position: 'top-right', id: 'add-to-fav-list' })
+		}
 	}
 
 	const addToWorkout = async () => {
@@ -19,9 +42,14 @@ const ExercisePage = () => {
 
 	return (
 		<main>
+			<Toaster />
 			<h1 className="main__title">{exercise.title}</h1>
 			<div className="exercise__actions">
-				<button onClick={saveToFavorites}>Save to favorites</button>
+				{user.favorites && user.favorites.some((favExercise) => favExercise._id === exercise._id) ? (
+					<Link to="/user/favorites">View favorites list</Link>
+				) : (
+					<button onClick={saveToFavorites}>Save to favorites</button>
+				)}
 				<button onClick={addToWorkout}>Add to my workout</button>
 			</div>
 			{exercise.active ? (
@@ -30,8 +58,11 @@ const ExercisePage = () => {
 						<div className="exercises__section--gallery">
 							{exercise.imageURL ? (
 								<img
+									width="600"
+									height="300"
 									src={exercise.imageURL}
 									alt=""
+									className="exercise__image"
 								/>
 							) : (
 								<PlaceholderAvatar />
@@ -43,7 +74,7 @@ const ExercisePage = () => {
 								// height="315"
 								src={`https://www.youtube.com/embed/${exercise.videoURL}`}
 								title="YouTube video player"
-								frameborder="0"
+								frameBorder="0"
 								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
 							></iframe>
 						</div>

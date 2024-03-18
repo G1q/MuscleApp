@@ -81,3 +81,8 @@ ol li {
 	gap: 1rem;
 	margin-bottom: 1rem;
 }
+
+.exercise__image {
+	object-fit: cover;
+	object-position: center;
+}

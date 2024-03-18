@@ -3,19 +3,24 @@ import { Link } from 'react-router-dom'
 import './styles/ExerciseCard.css'
 import PlaceholderAvatar from '../components/PlaceholderAvatar'
 
-const ExerciseCard = ({ exercise }) => {
+const ExerciseCard = ({ exercise, noImage }) => {
 	return (
-		<article className="exercise__card">
-			<div className="exercise__card--image">
-				{exercise.imageURL ? (
-					<img
-						src={exercise.imageURL}
-						alt=""
-					/>
-				) : (
-					<PlaceholderAvatar />
-				)}
-			</div>
+		<article
+			className="exercise__card"
+			data-image={noImage ? 'no-image' : ''}
+		>
+			{!noImage && (
+				<div className="exercise__card--image">
+					{exercise.imageURL ? (
+						<img
+							src={exercise.imageURL}
+							alt={exercise.title}
+						/>
+					) : (
+						<PlaceholderAvatar />
+					)}
+				</div>
+			)}
 			<Link
 				to={`/exercises/${exercise.slug}`}
 				className="exercise__card--link"

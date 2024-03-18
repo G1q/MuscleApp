@@ -6,29 +6,6 @@ import axiosInstance from '../../../config/axios.config'
 import toast, { Toaster } from 'react-hot-toast'
 import PlaceholderAvatar from '../../../components/PlaceholderAvatar'
 
-// const USER = {
-// 	id: 2,
-// 	username: 'G1q',
-// 	firstName: 'Beresteanu',
-// 	lastName: 'George',
-// 	email: 'g1q@bg.ro',
-// 	publicEmail: false,
-// 	birthDate: '1990-02-07',
-// 	publicBirthDate: false,
-// 	active: true,
-// 	role: 'admin',
-// 	createdAt: '2024-01-16',
-// 	image: 'https://i.pravatar.cc/300',
-// 	bio: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quisquam reprehenderit, quidem sint error necessitatibus laboriosam nulla atque, quia itaque facere repudiandae provident explicabo magnam fuga?',
-// 	socialMedia: {
-// 		facebook: 'https://www.facebook.com',
-// 		twitter: 'https://www.twitter.com',
-// 		instagram: 'https://www.instagram.com',
-// 		tiktok: 'https://www.tiktok.com',
-// 		pinterest: 'https://www.pinterest.com',
-// 	},
-// }
-
 const EditUser = () => {
 	const { id } = useParams()
 	const [user, setUser] = useState({})

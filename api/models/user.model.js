@@ -39,6 +39,10 @@ const userSchema = mongoose.Schema(
 		avatar: {
 			type: String,
 		},
+		favorites: {
+			type: [mongoose.Schema.Types.ObjectId],
+			ref: 'Exercise',
+		},
 	},
 	{ timestamps: true }
 )

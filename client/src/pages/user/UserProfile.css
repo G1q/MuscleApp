@@ -1,0 +1,22 @@
+.favorites__list {
+	list-style-type: none;
+	padding: 0;
+}
+
+.favorites__list li {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+.favorites__list li article {
+	flex: 1;
+}
+
+.favorites__list--remove-btn {
+	color: crimson;
+	background-color: transparent;
+	padding: 0;
+	cursor: pointer;
+	border: none;
+}

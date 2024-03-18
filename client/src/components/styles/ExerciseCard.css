@@ -49,3 +49,9 @@
 	border-radius: 100vmax;
 	font-size: 0.75rem;
 }
+
+.exercise__card[data-image='no-image'] {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
