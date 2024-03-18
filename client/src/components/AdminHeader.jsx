@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import styles from './styles/AdminHeader.module.css'
-import { RiHome2Line } from 'react-icons/ri'
+import { RiHome2Line, RiHistoryLine } from 'react-icons/ri'
 import { HiOutlineUsers } from 'react-icons/hi'
 import { BiCategoryAlt } from 'react-icons/bi'
 import { IoIosFitness } from 'react-icons/io'
@@ -35,6 +35,10 @@ const AdminHeader = () => {
 					<li>
 						<IoStatsChartOutline />
 						<NavLink to="./stats">Stats</NavLink>
+					</li>
+					<li>
+						<RiHistoryLine />
+						<NavLink to="./logs">Logs</NavLink>
 					</li>
 				</ul>
 			</nav>

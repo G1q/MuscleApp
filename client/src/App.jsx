@@ -32,6 +32,7 @@ import ExerciseTypeSettings from './pages/admin/Settings/ExerciseTypeSettings'
 import ExerciseEquipmentSettings from './pages/admin/Settings/ExerciseEquipmentSettings'
 import ExercisesByCategory from './pages/ExercisesByCategory'
 import UserFavorites from './pages/user/UserFavorites'
+import Logs from './pages/admin/Logs/Logs'
 
 function App() {
 	return (
@@ -111,6 +112,11 @@ function App() {
 					<Route
 						path="/admin/stats"
 						element={<AdminStats />}
+					/>
+
+					<Route
+						path="/admin/logs"
+						element={<Logs />}
 					/>
 				</Route>
 
