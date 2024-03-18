@@ -1,0 +1,9 @@
+.logs__table--body svg {
+	margin-inline: auto;
+	font-size: 1.15rem;
+	cursor: auto;
+}
+
+.logs__table--body a svg {
+	cursor: pointer;
+}

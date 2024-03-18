@@ -32,7 +32,7 @@ import ExerciseTypeSettings from './pages/admin/Settings/ExerciseTypeSettings'
 import ExerciseEquipmentSettings from './pages/admin/Settings/ExerciseEquipmentSettings'
 import ExercisesByCategory from './pages/ExercisesByCategory'
 import UserFavorites from './pages/user/UserFavorites'
-import Logs from './pages/admin/Logs/Logs'
+import AdminLogs from './pages/admin/AdminLogs/AdminLogs'
 
 function App() {
 	return (
@@ -116,7 +116,7 @@ function App() {
 
 					<Route
 						path="/admin/logs"
-						element={<Logs />}
+						element={<AdminLogs />}
 					/>
 				</Route>
 
