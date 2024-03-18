@@ -34,19 +34,23 @@ const Exercises = () => {
 					{/* TODO: Image map */}
 					{/* TODO: Temporarly: links, remove after image map */}
 					<ul className="exercises__categories--list">
-						{categories.map((category) => (
-							<li
-								key={category._id}
-								className="exercises__categories--list-item"
-							>
-								<Link
-									to={`/muscles/${category.slug}`}
-									className="exercises__categories--link"
-								>
-									{category.title}
-								</Link>
-							</li>
-						))}
+						{categories.map(
+							(category) =>
+								// Show only main categories
+								category.parent == 0 && (
+									<li
+										key={category._id}
+										className="exercises__categories--list-item"
+									>
+										<Link
+											to={`/muscles/${category.slug}`}
+											className="exercises__categories--link"
+										>
+											{category.title}
+										</Link>
+									</li>
+								)
+						)}
 					</ul>
 
 					<h2>All exercises:</h2>

@@ -73,3 +73,11 @@ ol li {
 	font-weight: normal;
 	color: var(--neutral-clr-100);
 }
+
+.exercise__actions {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem;
+	margin-bottom: 1rem;
+}

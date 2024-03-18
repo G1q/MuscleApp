@@ -9,9 +9,21 @@ const ExercisePage = () => {
 
 	const { data: exercise } = useFetchData(`exercises/${slug}`)
 
+	const saveToFavorites = async () => {
+		// TODO: after favs crud
+	}
+
+	const addToWorkout = async () => {
+		// TODO: after workouts crud
+	}
+
 	return (
 		<main>
 			<h1 className="main__title">{exercise.title}</h1>
+			<div className="exercise__actions">
+				<button onClick={saveToFavorites}>Save to favorites</button>
+				<button onClick={addToWorkout}>Add to my workout</button>
+			</div>
 			{exercise.active ? (
 				<section className="exercises__section exercises__section--page">
 					<div className="exercises__section--media">

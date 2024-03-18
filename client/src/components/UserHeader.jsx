@@ -4,6 +4,7 @@ import { RiHome2Line } from 'react-icons/ri'
 import { BiCategoryAlt } from 'react-icons/bi'
 import { IoIosFitness } from 'react-icons/io'
 import { LuSettings } from 'react-icons/lu'
+import { BsHeart } from 'react-icons/bs'
 
 const UserHeader = () => {
 	return (
@@ -21,6 +22,10 @@ const UserHeader = () => {
 					<li>
 						<IoIosFitness />
 						<NavLink to="./workouts">Workouts</NavLink>
+					</li>
+					<li>
+						<BsHeart />
+						<NavLink to="./favorites">Favorites</NavLink>
 					</li>
 					<li>
 						<LuSettings />

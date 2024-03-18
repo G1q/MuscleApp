@@ -35,7 +35,7 @@ const MusclePage = () => {
 				type="muscles"
 				category={category}
 			/>
-			<h1 className="main__title">{slug}</h1>
+			<h1 className="main__title">{category.title}</h1>
 			{category.active ? (
 				<section className="muscles__section muscles__section--page">
 					<div className="muscles__section--info">
@@ -68,7 +68,7 @@ const MusclePage = () => {
 										<Link
 											key={child._id}
 											to={`/exercises/category/${child.slug}`}
-										>{`Exercises form ${child.title}`}</Link>
+										>{`Exercises for ${child.title}`}</Link>
 									))}
 							</div>
 						</div>
