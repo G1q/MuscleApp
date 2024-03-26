@@ -12,7 +12,6 @@ const ExercisePage = () => {
 	const { slug } = useParams()
 	const { data: exercise } = useFetchData(`exercises/${slug}`)
 	const { getUserId } = useAuth()
-	// const [favorite, setFavorite] = useState(false)
 
 	const id = getUserId()
 	const { data: user } = useFetchData(`/users/${id}`)

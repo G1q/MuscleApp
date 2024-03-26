@@ -116,12 +116,12 @@ const EditUser = () => {
 						/>
 					</p>
 					<p>
-						<label htmlFor="birthdate">Birthdate:</label>
+						<label htmlFor="birthday">Birthday:</label>
 						<input
 							type="date"
-							name="birthdate"
-							id="birthdate"
-							value={user.birthdate}
+							name="birthday"
+							id="birthday"
+							value={user.birthday}
 							onChange={handleChanges}
 						/>
 					</p>

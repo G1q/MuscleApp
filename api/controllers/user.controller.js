@@ -56,11 +56,13 @@ const getUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
 	const { id } = req.params
-	const { username, email, password, role, active, firstName, lastName, birthdate, bio, avatar, favorites } = req.body
+	const { username, email, password, role, active, firstName, lastName, birthday, bio, avatar, favorites } = req.body
 	let hashedPassword = password
 
 	try {
 		const user = await User.findById(id)
+
+		console.log(user)
 
 		// Check if it's another user with the same email, but continue if the new email is same with user email
 		const existingEmail = await User.findOne({ email })
@@ -75,7 +77,7 @@ const updateUser = async (req, res) => {
 
 		const updatedUser = await User.findByIdAndUpdate(
 			id,
-			{ username, email, role, active, firstName, lastName, birthdate, bio, avatar, favorites, password: hashedPassword },
+			{ username, email, role, active, firstName, lastName, birthday, bio, avatar, favorites, password: hashedPassword },
 			{ new: true }
 		)
 
